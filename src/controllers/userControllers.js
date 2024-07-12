@@ -1,4 +1,4 @@
-const { registerQuery } = require("../queries/userQuery");
+const { registerQuery } = require("../queries/userQueries");
 
 const register = async (req, res) => {
   const token = await registerQuery(req.body);

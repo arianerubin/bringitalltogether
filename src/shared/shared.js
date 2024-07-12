@@ -6,12 +6,6 @@ const jwt = require("jsonwebtoken");
 const route = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const { Pool } = require("pg");
-const db = new Pool({
-  connectionString:
-    process.env.DATABASE_URL ||
-    "postgres://localhost:5432/bringitalltogether_db",
-});
 
 module.exports = {
   app,
@@ -19,5 +13,4 @@ module.exports = {
   jwt,
   route,
   prisma,
-  db,
 };
