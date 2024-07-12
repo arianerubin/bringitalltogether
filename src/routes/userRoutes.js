@@ -5,7 +5,7 @@ const {
   login,
   displayAll,
   deleteUser,
-  changeUser,
+  updateUser,
 } = require("../controllers/userControllers");
 
 const isLoggedIn = async (req, res, next) => {
@@ -21,7 +21,7 @@ route.post("/register", register);
 route.post("/login", login);
 route.get("/all_users", isLoggedIn, displayAll);
 route.delete("/:id/delete", isLoggedIn, deleteUser);
-route.put("/:id/change", isLoggedIn, changeUser);
+route.put("/:id/change", isLoggedIn, updateUser);
 
 module.exports = route;
 module.exports.isLoggedIn = isLoggedIn;

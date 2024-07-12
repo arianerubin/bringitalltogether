@@ -33,10 +33,18 @@ const deleteUser = async (req, res, next) => {
   res.send(delUser);
 };
 
-const changeUser = async (req, res, next) => {
+const updateUser = async (req, res, next) => {
   const userId = req.params.id;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const password = req.body.password;
   try {
-    const changedUser = await alterUser(userId);
+    const changedUser = await alterUser({
+      userId,
+      firstName,
+      lastName,
+      password,
+    });
     res.json(changedUser);
   } catch (error) {
     console.error(error);
@@ -49,5 +57,5 @@ module.exports = {
   login,
   displayAll,
   deleteUser,
-  changeUser,
+  updateUser,
 };

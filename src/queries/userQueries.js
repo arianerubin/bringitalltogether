@@ -97,28 +97,24 @@ const destroyUser = async (userId) => {
   return byeUser;
 };
 
-const alterUser = async ({ firstName, lastName, email, password }) => {
-  let changedUser;
+const alterUser = async ({ userId, firstName, lastName, password }) => {
   try {
-    changedUser = await prisma.user.update({
-      where: {
-        id: userId,
-      },
+    const saltRounds = 10;
+    const hashPassword = await bcrypt.hash(password, saltRounds);
+
+    const changedUser = await prisma.user.update({
+      where: { id: userId },
       data: {
-        firstName,
-        lastName,
-        email,
+        firstName: firstName,
+        lastName: lastName,
         password: hashPassword,
       },
     });
+    return changedUser;
   } catch (error) {
-    console.log(error);
+    console.error("Error updating user:", error);
+    throw error;
   }
-  return {
-    firstName: changedUser.firstName,
-    lastName: changedUser.lastName,
-    email: changedUser.email,
-  };
 };
 
 module.exports = {
