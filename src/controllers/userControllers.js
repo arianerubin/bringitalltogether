@@ -1,5 +1,9 @@
 const { registerQuery } = require("../queries/userQueries");
-const { loginQuery, getAllUser } = require("../queries/userQueries");
+const {
+  loginQuery,
+  getAllUser,
+  destroyUser,
+} = require("../queries/userQueries");
 
 const register = async (req, res) => {
   const token = await registerQuery(req.body);
@@ -22,9 +26,15 @@ const displayAll = async (req, res, next) => {
   res.send(users);
 };
 
+const deleteUser = async (req, res, next) => {
+  const userId = req.params.id;
+  const delUser = await destroyUser(userId);
+  res.send(delUser);
+};
 
 module.exports = {
   register,
   login,
   displayAll,
+  deleteUser,
 };
