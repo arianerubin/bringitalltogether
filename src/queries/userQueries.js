@@ -83,9 +83,24 @@ const findUserWithToken = async (authorizationHeader) => {
   return user;
 };
 
+const destroyUser = async (userId) => {
+  let byeUser;
+  try {
+    byeUser = await prisma.user.delete({
+      where: {
+        id: userId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  return byeUser;
+};
+
 module.exports = {
   registerQuery,
   loginQuery,
   getAllUser,
   findUserWithToken,
+  destroyUser,
 };
