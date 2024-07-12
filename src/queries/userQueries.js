@@ -97,10 +97,35 @@ const destroyUser = async (userId) => {
   return byeUser;
 };
 
+const alterUser = async ({ firstName, lastName, email, password }) => {
+  let changedUser;
+  try {
+    changedUser = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        firstName,
+        lastName,
+        email,
+        password: hashPassword,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  return {
+    firstName: changedUser.firstName,
+    lastName: changedUser.lastName,
+    email: changedUser.email,
+  };
+};
+
 module.exports = {
   registerQuery,
   loginQuery,
   getAllUser,
   findUserWithToken,
   destroyUser,
+  alterUser,
 };
