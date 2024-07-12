@@ -1,5 +1,6 @@
 const { bcrypt, prisma, jwt } = require("../shared/shared");
 const registerQuery = async ({ firstName, lastName, email, password }) => {
+  console.log(password);
   const hashPassword = await bcrypt.hash(password, 10);
   const registerUser = await prisma.user.create({
     data: {
@@ -18,7 +19,12 @@ const registerQuery = async ({ firstName, lastName, email, password }) => {
       expiresIn: "1h",
     }
   );
-  return token;
+  return {
+    token: token,
+    firstName: registerUser.firstName,
+    lastName: registerUser.lastName,
+    email: registerUser.email,
+  };
 };
 
 module.exports = {
