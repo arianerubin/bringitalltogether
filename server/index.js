@@ -7,3 +7,8 @@ app.listen(PORT, () => {
 
 const userRoutes = require("../src/routes/userRoutes");
 app.use("/api/user", userRoutes);
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
